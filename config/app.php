@@ -171,6 +171,7 @@ return [
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
     ])->toArray(),
 
+
     /*
     |--------------------------------------------------------------------------
     | Class Aliases

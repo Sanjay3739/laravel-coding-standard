@@ -2,13 +2,10 @@
 
 namespace App\Helpers;
 
-use Illuminate\Support\Facades\Config;
-
 class ApiHelper
 {
-    public static function response($success, $data = [], $messageKey = null, $status = null)
+    public static function response($success, $data = [], $message = null, $status = 200)
     {
-        $message = Config::get('constant.' . $messageKey);
         return [
             'success' => $success,
             'data' => $data,
