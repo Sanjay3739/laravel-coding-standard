@@ -39,6 +39,12 @@ class AuthController extends Controller
 
         // Using ApiHelper to create a custom API response
         $response = ApiHelper::response(true, ['user' => $user, 'token' => $token], 'USER_REGISTERED_SUCCESSFULLY', 201);
+<<<<<<< HEAD
+=======
+
+        return response()->json($response);
+    }
+>>>>>>> 5ae3134f2d74ab3c174f3acf80228c6189844b76
 
         return response()->json($response);
     }
@@ -49,11 +55,14 @@ class AuthController extends Controller
             'email' => 'required|email',
             'password' => 'required|string|min:6',
         ]);
-    
+
         if ($validator->fails()) {
-            return response()->json(ApiHelper::response(false, [], 'INVALID_INPUT', 422));
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors()->first(),
+            ], 422);
         }
-    
+
         $credentials = $request->only('email', 'password');
     
         $user = User::where('email', $credentials['email'])->first();
@@ -64,16 +73,19 @@ class AuthController extends Controller
     
         try {
             if (!$token = JWTAuth::attempt($credentials)) {
-                return response()->json(ApiHelper::response(false, [], 'INVALID_CREDENTIAL', 400));
+                $response = ApiHelper::response(false, [], 'INVALID_CREDENTIAL', 400);
+                return response()->json($response);
             }
         } catch (JWTException $e) {
-            return response()->json(ApiHelper::response(false, [], 'TOKEN_NOT_CREATED', 500));
+            // Using ApiHelper to create a custom error response
+            $response = ApiHelper::response(false, [], 'TOKEN_NOT_CREATED', 500);
+            return response()->json($response);
         }
     
         $user = JWTAuth::user();
-    
-        $response = ApiHelper::response(true, ['user' => $user, 'token' => $token], 'USER_LOGIN_SUCCESSFULLY', 201);
-    
+
+        // Using ApiHelper to create a custom success response
+        $response = ApiHelper::response(true, ['user' => $user, 'token' => $token], 'USER_LOGGED_SUCCESSFULLY', 201);
         return response()->json($response);
     }
     
