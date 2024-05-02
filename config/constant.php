@@ -11,5 +11,7 @@ return [
     'USER_LOGOUT_FAILED' => 'Failed to logout',
     'PASSWORD_RESET_EMAIL_SENT' => 'Password Reset Link Sent Successfully.',
     'INVALID_TOKEN' => 'AUTHORIZATION FAILED.',
-    'PASSWORD_RESET_SUCCESS'=> 'Password Change Successfully.'
+    'PASSWORD_RESET_SUCCESS'=> 'Password Change Successfully.',
+    'USER_FETCH_SUCCESS'=> 'User data fetch successfully.',
+    'INTERNAL_SERVER_ERROR'=>'internal server'
 ];
